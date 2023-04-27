@@ -17,6 +17,13 @@ app.use((req, res, next) => {
 
 app.use('/feed', feedRoutes);
 
+app.use((error, req, res, next) => {
+    console.log(error);
+    const status = error.statusCode || 500;
+    const message = error.message;
+    res.status(status).json({ message: message });
+  });
+
 mongoose.connect('mongodb://127.0.0.1:27017/shopApi').then(result => {
     console.log("data base connected succesffully");
     app.listen(8080);
