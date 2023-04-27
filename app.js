@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const multer = require('multer');
 // const { v4: uuidv4 } = require('uuid');
 const feedRoutes = require('./routes/feed');
+const authRoutes = require('./routes/auth');
 
 const app = express();
 
@@ -43,6 +44,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/feed', feedRoutes);
+app.use('/auth', authRoutes);
 
 app.use((error, req, res, next) => {
     console.log(error);
@@ -52,6 +54,6 @@ app.use((error, req, res, next) => {
   });
 
 mongoose.connect('mongodb://127.0.0.1:27017/shopApi').then(result => {
-    console.log("data base connected succesffully");
+    console.log("Database connected succesffully");
     app.listen(8080);
   }).catch(err => console.log(err));
